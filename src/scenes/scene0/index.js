@@ -54,6 +54,10 @@ module.exports = function (render) {
       boat.playBoat(aside);
     });
 
+    stage.render = function () {
+      sea.speed = boat.speed;
+    }
+
     window.boat = boat;
 
     render(stage);

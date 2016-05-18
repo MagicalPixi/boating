@@ -66,11 +66,14 @@ function boatPlayer(aside,playerFn){
 
 function wrapperBoat(boat){
 
-  boat.resizeRatio = function () {
+  /**
+   * 调整角度
+   */
+  boat.updateRatio = function () {
     var left = this.leftCount;
     var right = this.rightCount;
 
-    var radians = -(right - left) * Math.PI/10;
+    var radians = -(right - left) * Math.PI/30;
 
     console.log(left,right,radians);
 
@@ -80,11 +83,20 @@ function wrapperBoat(boat){
     var targetX = centralX*Math.cos(radians) - centralY*Math.sin(radians);
     var targetY = centralX*Math.cos(radians) + centralY*Math.sin(radians);
 
-    this.x = this.initX - (targetX - centralX);
-    this.y = this.initY - (targetY - centralY);
+    console.log(targetX-centralX, (targetY - centralY));
+
+    this.x = this.initX - (targetX - centralX)/2;
+    this.y = this.initY - (targetY - centralY)/2;
+
 
     this.rotation = radians;
   };
+  /**
+   * 调整速度
+   */
+  boat.updateSpeed = function(){
+    this.speed = this.initSpeed + (this.leftCount + this.rightCount)/2;
+  }
   /**
    * @param aside 0.left,1.right
    */
@@ -92,16 +104,19 @@ function wrapperBoat(boat){
     if(!aside){
       this.leftCount = this.leftPlayerObj.play(function(playCount){
         boat.leftCount = playCount;
-        boat.resizeRatio()
+        boat.updateRatio();
+        boat.updateSpeed();
       });
     }else{
       this.rightCount = this.rightPlayerObj.play(function(playCount){
         boat.rightCount = playCount;
-        boat.resizeRatio()
+        boat.updateRatio();
+        boat.updateSpeed();
       });
     }
 
-    this.resizeRatio()
+    this.updateRatio();
+    this.updateSpeed();
   };
 
   return boat;
@@ -114,11 +129,13 @@ module.exports = function(playerFn){
   var container = new PIXI.Container();
 
   container.initX = 220;
-  container.initY = 252;
+  container.initY = 350;
   container.x = 220;
-  container.y = 252;
+  container.y = 350;
   container.leftCount = DEFAULT_PLAY_COUNT;
   container.rightCount = DEFAULT_PLAY_COUNT;
+  container.initSpeed = 1;
+  container.speed = 1;
 
   container.addChild(boat);
 
