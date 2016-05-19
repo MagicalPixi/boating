@@ -1,10 +1,11 @@
 var json = [
   
     'boating_player',
-  
+
 ];
 var png = [
-  "sea"
+  "sea",
+  'race_flag'
 ];
 
 module.exports = function (add,callback) {

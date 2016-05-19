@@ -17,5 +17,7 @@ module.exports = function(){
   graphics.endFill();
 
 
+  window.g = graphics;
+
   return graphics;
 };

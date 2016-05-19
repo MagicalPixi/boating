@@ -38,13 +38,16 @@ module.exports = function (render) {
 
     var boatingPlayerFn = require('../../sprites/boating_player');
     var boatFn = require('../../sprites/boat');
+    var distanceProgressFn = require('../../sprites/distance_progress');
 
     var boat = boatFn(boatingPlayerFn);
+    var distanceProgress = distanceProgressFn(boat);
 
     var stage = new PIXI.Container();
 
     stage.addChild(sea);
 
+    stage.addChild(distanceProgress);
     stage.addChild(boat);
 
     stage.interactive = true;
