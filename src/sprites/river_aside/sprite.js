@@ -2,41 +2,13 @@ var pixiLib = require('pixi-lib');
 
 var args = [{
 
-  textures:pixiLib.getTextures('race_flag'),
+  textures:pixiLib.getTextures('river_aside'),
 
   
 
     
 
-    "spriteName" :  "race_flag" ,
-
-    
-
-  
-
-    
-
-    "x" :  0.1 ,
-
-    
-
-  
-
-    
-
-  
-
-    
-
-    "scale.x" :  0.14 ,
-
-    
-
-  
-
-    
-
-    "scale.y" :  0.15 ,
+    "spriteName" :  "river_aside" ,
 
     
 

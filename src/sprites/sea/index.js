@@ -1,10 +1,9 @@
 var PIXI = require('pixi');
 var pixiLib = require('pixi-lib')
 
+var riverAsideFn = require('../river_aside');
+
 var mySpriteFn = require('./sprite.js');
-
-
-var container = new PIXI.Container();
 
 var mySprite = mySpriteFn();
 var mySprite2 = mySpriteFn();
@@ -27,18 +26,21 @@ function wrapper(obj){
 mySprite.y = 0;
 mySprite2.y = -height;
 
-container.speed = mySprite.speed = mySprite2.speed = 1;
 
+module.exports = function (boat) {
 
-container.addChild(wrapper(mySprite));
-container.addChild(wrapper(mySprite2));
+  var container = new PIXI.Container();
 
-container.render = function () {
+  container.addChild(wrapper(mySprite));
+  container.addChild(wrapper(mySprite2));
 
-  this.children.forEach(function (c) {
-    c.speed = container.speed;
-    c.render();
-  })
-}
+  container.render = function () {
 
-module.exports = container;
+    this.children.forEach(function (c) {
+      c.speed = boat.speed;
+      c.render();
+    })
+  }
+
+  return container;
+};

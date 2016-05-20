@@ -15,8 +15,10 @@ module.exports = function (boat) {
 
   var container = new PIXI.Container();
 
+  var isEnd = false;
+
   flag.y = 25;
-  flag.x = 0;
+  flag.x = 5;
 
   container.addChild(bar);
 
@@ -26,8 +28,10 @@ module.exports = function (boat) {
   window.p = progress;
 
   container.render = function () {
-    flag.x += boat.speed;
-    progress.updateWidth(flag.x+15);
+    if(!isEnd){
+      flag.x += boat.speed;
+      isEnd = progress.updateWidth(flag.x+5);
+    }
   }
 
 

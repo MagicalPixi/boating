@@ -34,7 +34,7 @@ module.exports = function (render) {
 
   addResource(loader.add.bind(loader),function(){
 
-    var sea = require('../../sprites/sea');
+    var seaFn = require('../../sprites/sea');
 
     var boatingPlayerFn = require('../../sprites/boating_player');
     var boatFn = require('../../sprites/boat');
@@ -42,6 +42,8 @@ module.exports = function (render) {
 
     var boat = boatFn(boatingPlayerFn);
     var distanceProgress = distanceProgressFn(boat);
+
+    var sea = seaFn(boat);
 
     var stage = new PIXI.Container();
 
@@ -56,12 +58,6 @@ module.exports = function (render) {
       console.log('aside:',aside);
       boat.playBoat(aside);
     });
-
-    stage.render = function () {
-      sea.speed = boat.speed;
-    }
-
-    window.boat = boat;
 
     render(stage);
   });

@@ -26,6 +26,9 @@ module.exports = {
 
 
     graphics.updateWidth = function (width) {
+      if(width > w){
+        width = w;
+      }
       graphics.clear();
 
       graphics.beginFill(0x512E0F);
@@ -35,6 +38,8 @@ module.exports = {
       graphics.drawRect(w/18, w / 18,width, w / 18);
 
       graphics.endFill();
+
+      return width === w;
     }
 
     return graphics;

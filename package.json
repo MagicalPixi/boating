@@ -22,7 +22,8 @@
   "resources": [
     "boating_player",
     "sea",
-    "race_flag"
+    "race_flag",
+    "river_aside"
   ],
   "scenes": {},
   "scenesEdit": [],
