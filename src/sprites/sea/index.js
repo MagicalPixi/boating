@@ -19,7 +19,6 @@ function wrapper(obj){
       this.y = -height
     }
   }
-
   return obj;
 }
 
@@ -30,6 +29,7 @@ mySprite2.y = -height;
 module.exports = function (boat) {
 
   var container = new PIXI.Container();
+  container.y = 0;
 
   container.addChild(wrapper(mySprite));
   container.addChild(wrapper(mySprite2));

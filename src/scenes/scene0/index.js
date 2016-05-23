@@ -39,15 +39,21 @@ module.exports = function (render) {
     var boatingPlayerFn = require('../../sprites/boating_player');
     var boatFn = require('../../sprites/boat');
     var distanceProgressFn = require('../../sprites/distance_progress');
+    var riverAsideFn = require('../../sprites/river_aside')
 
     var boat = boatFn(boatingPlayerFn);
     var distanceProgress = distanceProgressFn(boat);
-
     var sea = seaFn(boat);
+
+    var riverAsideLeft = riverAsideFn(boat)
+    var riverAsideRight = riverAsideFn(boat,true);
 
     var stage = new PIXI.Container();
 
     stage.addChild(sea);
+
+    stage.addChild(riverAsideLeft)
+    stage.addChild(riverAsideRight)
 
     stage.addChild(distanceProgress);
     stage.addChild(boat);

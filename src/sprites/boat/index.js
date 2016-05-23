@@ -33,32 +33,34 @@ function boatPlayer(aside,playerFn){
   var st = 0;
   //当前的速度累加层次，调用一次叠加一层，持续{playerCountDuration}秒
   //总是有速度的，初始为1
-  var playerCount = DEFAULT_PLAY_COUNT;
+  var speedPlayerCount = DEFAULT_PLAY_COUNT;
+  var directionPlayerCount = DEFAULT_PLAY_COUNT;
   var playerCountDuration = 500;
 
   return {
     players:players,
     play: function (whenDurationEndFn) {
 
-      playerCount++;
+      directionPlayerCount++;
+      speedPlayerCount++
 
       players = players.map(function (p) {
-        p.animationSpeed = defaultAnimateSpeed * playerCount;
+        p.animationSpeed = defaultAnimateSpeed * speedPlayerCount;
         return p;
       });
 
       st = setTimeout(function(){
-        playerCount--;
+        speedPlayerCount--;
         players = players.map(function (p) {
-          p.animationSpeed = defaultAnimateSpeed * playerCount;
+          p.animationSpeed = defaultAnimateSpeed * speedPlayerCount;
           return p;
         })
 
-        whenDurationEndFn(playerCount);
+        whenDurationEndFn(speedPlayerCount);
 
       },playerCountDuration);
 
-      return playerCount;
+      return directionPlayerCount;
     }
   }
 }
@@ -70,8 +72,10 @@ function wrapperBoat(boat){
    * 调整角度
    */
   boat.updateRatio = function () {
-    var left = this.leftCount;
-    var right = this.rightCount;
+    var left = this.directionLeftCount;
+    var right = this.directionRightCount;
+
+    console.log(left,right);
 
     var radians = -(right - left) * Math.PI/30;
 
@@ -95,29 +99,42 @@ function wrapperBoat(boat){
    * 调整速度
    */
   boat.updateSpeed = function(){
-    this.speed = this.initSpeed + (this.leftCount + this.rightCount)/2;
+    this.speed = this.initSpeed + (this.speedLeftCount + this.speedRightCount)/2;
   }
   /**
    * @param aside 0.left,1.right
    */
   boat.playBoat = function(aside){
     if(!aside){
-      this.leftCount = this.leftPlayerObj.play(function(playCount){
-        boat.leftCount = playCount;
-        boat.updateRatio();
+      this.directionLeftCount = this.leftPlayerObj.play(function(playCount){
+        boat.speedLeftCount = playCount;
+        //boat.updateRatio();
         boat.updateSpeed();
       });
+      this.speedLeftCount = this.directionLeftCount;
     }else{
-      this.rightCount = this.rightPlayerObj.play(function(playCount){
-        boat.rightCount = playCount;
-        boat.updateRatio();
+      this.directionRightCount = this.rightPlayerObj.play(function(playCount){
+        boat.speedRightCount = playCount;
+        //boat.updateRatio();
         boat.updateSpeed();
       });
+      this.speedRightCount = this.directionRightCount;
     }
 
     this.updateRatio();
     this.updateSpeed();
+
+
+    //叠加操作的角度
+    //var radians = -(this.rightCount - this.leftCount) * Math.PI/30;
+    this.direction = this.rotation
+    //this.direction += radians;
+    //console.log(this.direction,radians);
   };
+
+  boat.render = function () {
+    boat.distance += boat.speed * Math.cos(this.direction);
+  }
 
   return boat;
 }
@@ -132,10 +149,19 @@ module.exports = function(playerFn){
   container.initY = 350;
   container.x = 220;
   container.y = 350;
-  container.leftCount = DEFAULT_PLAY_COUNT;
-  container.rightCount = DEFAULT_PLAY_COUNT;
+
+  container.directionLeftCount = DEFAULT_PLAY_COUNT;
+  container.directionRightCount = DEFAULT_PLAY_COUNT;
+
+  container.speedLeftCount = DEFAULT_PLAY_COUNT;
+  container.speedRightCount = DEFAULT_PLAY_COUNT;
+
   container.initSpeed = 1;
   container.speed = 1;
+
+  container.distance = 0;
+  //船的历史角度叠加记录
+  container.direction = 0
 
   container.addChild(boat);
 
