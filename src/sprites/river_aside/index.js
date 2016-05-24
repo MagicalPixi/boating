@@ -66,7 +66,6 @@ module.exports = function(boat,reverse){
   if(reverse){
     container.x = WIDTH;
     container.scale.x = -container.scale.x;
-    window.c = container;
   }
 
 

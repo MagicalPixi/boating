@@ -1,7 +1,7 @@
 {
-  "name": "template",
+  "name": "boating",
   "version": "1.0.0",
-  "description": "",
+  "description": "划龙舟",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -30,7 +30,7 @@
   "permission": {},
   "dependencies": {
     "ejs": "^2.4.1",
-    "lodash": "^4.12.0",
-    "pixi-lib": "^1.13.3"
+    "lodash": "^4.13.1",
+    "pixi-lib": "^1.13.4"
   }
 }

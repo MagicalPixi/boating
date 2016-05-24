@@ -2,6 +2,7 @@
  * Created by zyg on 16/5/15.
  */
 var PIXI = require('pixi');
+var pixiLib = require('pixi-lib')
 var range = require('lodash/range');
 var spriteFn = require('./sprite');
 
@@ -79,21 +80,35 @@ function wrapperBoat(boat){
 
     var radians = -(right - left) * Math.PI/30;
 
-    console.log(left,right,radians);
+    if(Math.abs(radians) >= this.maxDirection){
+      if(radians > 0){
+        this.bgDirection = radians - this.maxDirection
+      }else{
+        this.bgDirection = radians + this.maxDirection
+      }
+      radians = this.maxDirection;
+    }
+
+    console.log('left-right:',left,right);
 
     var centralX = this.centralX;
     var centralY = this.centralY;
 
-    var targetX = centralX*Math.cos(radians) - centralY*Math.sin(radians);
-    var targetY = centralX*Math.cos(radians) + centralY*Math.sin(radians);
+    var targetArr = pixiLib.math.rotateWithCentral(centralX,centralY,radians)
+    var distanceX = targetArr[0]
+    var distanceY = targetArr[1]
 
-    console.log(targetX-centralX, (targetY - centralY));
+    //targetX = centralX*Math.cos(radians) - centralY*Math.sin(radians);
+    //targetY = centralX*Math.cos(radians) + centralY*Math.sin(radians);
 
-    this.x = this.initX - (targetX - centralX)/2;
-    this.y = this.initY - (targetY - centralY)/2;
+    //this.x = this.initX - (targetX - centralX)/2;
+    //this.y = this.initY - (targetY - centralY)/2;
 
+    this.x = this.initX - distanceX/2
+    this.y = this.initY - distanceY/2
 
     this.rotation = radians;
+    this.direction = radians;
   };
   /**
    * 调整速度
@@ -127,9 +142,9 @@ function wrapperBoat(boat){
 
     //叠加操作的角度
     //var radians = -(this.rightCount - this.leftCount) * Math.PI/30;
-    this.direction = this.rotation
     //this.direction += radians;
-    //console.log(this.direction,radians);
+
+    console.log('bgDirection:',this.bgDirection);
   };
 
   boat.render = function () {
@@ -162,6 +177,11 @@ module.exports = function(playerFn){
   container.distance = 0;
   //船的历史角度叠加记录
   container.direction = 0
+  //超过这个角度，船不在旋转,而是背景旋转
+  container.maxDirection = 3 * Math.PI/30;
+  //背景旋转度
+  container.bgDirection = 0
+
 
   container.addChild(boat);
 
