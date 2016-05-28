@@ -74,9 +74,8 @@ template/src/scenes/
 
 template/src/sprites/
 
-*.png
-
-*.json
+#*.png
+#*.json
 
 !bower.json
 !package.json

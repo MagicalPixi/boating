@@ -1,5 +1,7 @@
 var pixiLib = require('pixi-lib');
 
+window.pixiLib = pixiLib;
+
 var render = pixiLib.createRender(document.body);
 
 var scenesLoader = require.context('./scenes/');

@@ -8,6 +8,11 @@ var spriteFn = require('./sprite');
 
 var PLAYER_GAP = 90;
 var DEFAULT_PLAY_COUNT = 1;
+
+var WIDTH  = pixiLib.createRender.DEFAULT_WIDTH;
+var HEIGHT = pixiLib.createRender.DEFAULT_HEIGHT;
+
+var SINGLE_PI = Math.PI/60;
 /**
  * @param aside 0=left,1=right
  * @param playerFn
@@ -78,15 +83,16 @@ function wrapperBoat(boat){
 
     console.log(left,right);
 
-    var radians = -(right - left) * Math.PI/30;
+    var radians = -(right - left) * SINGLE_PI;
 
     if(Math.abs(radians) >= this.maxDirection){
       if(radians > 0){
         this.bgDirection = radians - this.maxDirection
+        radians = this.maxDirection;
       }else{
         this.bgDirection = radians + this.maxDirection
+        radians = -this.maxDirection;
       }
-      radians = this.maxDirection;
     }
 
     console.log('left-right:',left,right);
@@ -109,6 +115,7 @@ function wrapperBoat(boat){
 
     this.rotation = radians;
     this.direction = radians;
+    this.allDirection = radians + this.bgDirection;
   };
   /**
    * 调整速度
@@ -148,7 +155,13 @@ function wrapperBoat(boat){
   };
 
   boat.render = function () {
-    boat.distance += boat.speed * Math.cos(this.direction);
+    boat.distanceX -= boat.speed * Math.sin(this.allDirection);
+    boat.distanceY += boat.speed * Math.cos(this.allDirection);
+  }
+
+  boat.test = function(){
+    this.directionLeftCount = 6;
+    this.updateRatio();
   }
 
   return boat;
@@ -159,6 +172,8 @@ module.exports = function(playerFn){
   var boat = spriteFn();
 
   var container = new PIXI.Container();
+
+  container.name = '船';
 
   container.initX = 220;
   container.initY = 350;
@@ -174,14 +189,14 @@ module.exports = function(playerFn){
   container.initSpeed = 1;
   container.speed = 1;
 
-  container.distance = 0;
   //船的历史角度叠加记录
   container.direction = 0
   //超过这个角度，船不在旋转,而是背景旋转
-  container.maxDirection = 3 * Math.PI/30;
+  container.maxDirection = 3 * SINGLE_PI;
   //背景旋转度
-  container.bgDirection = 0
-
+  container.bgDirection = 0;
+  //总旋转角度
+  container.allDirection = 0;
 
   container.addChild(boat);
 
@@ -195,10 +210,16 @@ module.exports = function(playerFn){
   container.centralX = container.width/2;
   container.centralY = container.height/2;
 
+  container.distanceX = 0;
+  container.initDistanceY = HEIGHT - container.centralY - container.y
+  container.distanceY = HEIGHT - container.height - container.y
+
   container.leftPlayerObj = leftPlayerObj;
   container.rightPlayerObj = rightPlayerObj;
 
   container = wrapperBoat(container);
+
+  window.boat = container;
 
   return container;
 };

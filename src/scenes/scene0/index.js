@@ -53,7 +53,7 @@ module.exports = function (render) {
     stage.addChild(sea);
 
     stage.addChild(riverAsideLeft)
-    stage.addChild(riverAsideRight)
+    //stage.addChild(riverAsideRight)
 
     stage.addChild(distanceProgress);
     stage.addChild(boat);
@@ -65,6 +65,8 @@ module.exports = function (render) {
       boat.playBoat(aside);
     });
 
-    render(stage);
+    window.renderObj = render(stage);
+
+    renderObj.cancel();
   });
 };
