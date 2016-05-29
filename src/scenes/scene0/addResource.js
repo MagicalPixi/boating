@@ -6,7 +6,8 @@ var json = [
 var png = [
   "sea",
   'race_flag',
-  'river_aside'
+  'river_aside',
+  'zongzi'
 ];
 
 module.exports = function (add,callback) {

@@ -41,9 +41,12 @@ module.exports = function (render) {
     var distanceProgressFn = require('../../sprites/distance_progress');
     var riverAsideFn = require('../../sprites/river_aside')
 
+    var blockContainerFn = require('../../sprites/blockContainer')
+
     var boat = boatFn(boatingPlayerFn);
     var distanceProgress = distanceProgressFn(boat);
-    var sea = seaFn(boat);
+    var sea = seaFn(boat)
+    var blockContainer = blockContainerFn(boat)
 
     var riverAsideLeft = riverAsideFn(boat)
     var riverAsideRight = riverAsideFn(boat,true);
@@ -52,8 +55,10 @@ module.exports = function (render) {
 
     stage.addChild(sea);
 
+    stage.addChild(blockContainer)
+
     stage.addChild(riverAsideLeft)
-    //stage.addChild(riverAsideRight)
+    stage.addChild(riverAsideRight)
 
     stage.addChild(distanceProgress);
     stage.addChild(boat);
@@ -67,6 +72,6 @@ module.exports = function (render) {
 
     window.renderObj = render(stage);
 
-    renderObj.cancel();
+    //renderObj.cancel();
   });
 };

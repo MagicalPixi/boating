@@ -85,33 +85,33 @@ function wrapperBoat(boat){
 
     var radians = -(right - left) * SINGLE_PI;
 
-    if(Math.abs(radians) >= this.maxDirection){
-      if(radians > 0){
-        this.bgDirection = radians - this.maxDirection
-        radians = this.maxDirection;
-      }else{
-        this.bgDirection = radians + this.maxDirection
-        radians = -this.maxDirection;
-      }
-    }
+    //if(Math.abs(radians) >= this.maxDirection){
+    //  if(radians > 0){
+    //    this.bgDirection = radians - this.maxDirection
+    //    radians = this.maxDirection;
+    //  }else{
+    //    this.bgDirection = radians + this.maxDirection
+    //    radians = -this.maxDirection;
+    //  }
+    //}
 
     console.log('left-right:',left,right);
 
-    var centralX = this.centralX;
-    var centralY = this.centralY;
+    var originX = this.originX;
+    var originY = this.originY;
 
-    var targetArr = pixiLib.math.rotateWithCentral(centralX,centralY,radians)
+    var targetArr = pixiLib.math.rotateWithCentral(originX,-originY,-radians)
     var distanceX = targetArr[0]
     var distanceY = targetArr[1]
 
-    //targetX = centralX*Math.cos(radians) - centralY*Math.sin(radians);
-    //targetY = centralX*Math.cos(radians) + centralY*Math.sin(radians);
+    //targetX = originX*Math.cos(radians) - originY*Math.sin(radians);
+    //targetY = originX*Math.cos(radians) + originY*Math.sin(radians);
 
-    //this.x = this.initX - (targetX - centralX)/2;
-    //this.y = this.initY - (targetY - centralY)/2;
+    //this.x = this.initX - (targetX - originX)/2;
+    //this.y = this.initY - (targetY - originY)/2;
 
     this.x = this.initX - distanceX/2
-    this.y = this.initY - distanceY/2
+    this.y = this.initY + distanceY/2
 
     this.rotation = radians;
     this.direction = radians;
@@ -122,6 +122,8 @@ function wrapperBoat(boat){
    */
   boat.updateSpeed = function(){
     this.speed = this.initSpeed + (this.speedLeftCount + this.speedRightCount)/2;
+    this.speedY = this.speed * Math.cos(this.allDirection)
+    this.speedX = this.speed * Math.sin(this.allDirection)
   }
   /**
    * @param aside 0.left,1.right
@@ -156,9 +158,20 @@ function wrapperBoat(boat){
 
   boat.render = function () {
     boat.distanceX -= boat.speed * Math.sin(this.allDirection);
-    boat.distanceY += boat.speed * Math.cos(this.allDirection);
+    boat.distanceX -= boat.speed * Math.sin(this.allDirection);
+
+    var d = boat.speed * Math.sin(this.allDirection);
+    boat.x += d
+    boat.initX += d
+    boat.centralX = boat.initX + boat.originX
   }
 
+  boat.speedUp = function () {
+    this.speed += 10
+    setTimeout(function () {
+      this.speed -=10
+    })
+  }
   boat.test = function(){
     this.directionLeftCount = 6;
     this.updateRatio();
@@ -175,10 +188,7 @@ module.exports = function(playerFn){
 
   container.name = '船';
 
-  container.initX = 220;
-  container.initY = 350;
-  container.x = 220;
-  container.y = 350;
+
 
   container.directionLeftCount = DEFAULT_PLAY_COUNT;
   container.directionRightCount = DEFAULT_PLAY_COUNT;
@@ -188,6 +198,8 @@ module.exports = function(playerFn){
 
   container.initSpeed = 1;
   container.speed = 1;
+  container.speedX = 0;
+  container.speedY = 1;
 
   //船的历史角度叠加记录
   container.direction = 0
@@ -203,16 +215,22 @@ module.exports = function(playerFn){
   var leftPlayerObj = boatPlayer(0,playerFn);
   var rightPlayerObj = boatPlayer(1,playerFn);
 
+  container.originX = container.width/2;
+  container.originY = container.height/2;
+  container.initX = (WIDTH - container.width)/2;
+  container.initY = HEIGHT - container.height - 40;
+  container.centralX = container.initX + container.originX;
+  container.centralY = container.initY + container.originX;
+  container.x = container.initX;
+  container.y = container.initY;
+
+  container.distanceX = 0;
+  container.initDistanceY = HEIGHT - container.originY - container.y
+  container.distanceY = HEIGHT - container.height - container.y
+
   leftPlayerObj.players.concat(rightPlayerObj.players).forEach(function (p) {
     container.addChild(p);
   });
-
-  container.centralX = container.width/2;
-  container.centralY = container.height/2;
-
-  container.distanceX = 0;
-  container.initDistanceY = HEIGHT - container.centralY - container.y
-  container.distanceY = HEIGHT - container.height - container.y
 
   container.leftPlayerObj = leftPlayerObj;
   container.rightPlayerObj = rightPlayerObj;

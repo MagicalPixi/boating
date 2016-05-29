@@ -50,6 +50,10 @@ function lRoadFn2(x,y){
 }
 //直线
 
+function lRoadFn(x,y){
+
+
+}
 
 
 //轨道函数右侧侧
@@ -65,45 +69,17 @@ function wrapper(container,boat,reverse){
 
   var i = 0;
   container.render = function () {
-    if(i++%10===0) {
-      var asidePositionArr = this.roadFn(boat.distanceX, boat.distanceY);
-
-      console.log(asidePositionArr.map(function(p){return p.x}));
-      //console.log(asidePositionArr.map(function(p){return p.y}));
-
-      asidePositionArr.map(function (position, i) {
-        var c = container.children[i];
-        if (!c) {
-          var c = mySpriteFn()
-          container.addChild(c);
-        }
-        c.x = position.x
-        c.y = position.y;
-      })
-
-      var right = container.children[container.children.length-1].x
-      var left = container.children[0].x;
-
-      this.centralX = left + (right - left)/2
-
-      window.containerObj = container;
-
-      var myX = -320;
-      var myY = boat.centralY+boat.y
-
-      var distanceArr = pixiLib.math.rotateWithCentral(myX,myY,boat.bgDirection);
-
-      //console.log(myX,myY)
-      //console.log(distanceArr)
-
-      this.x = container.initX + distanceArr[0]
-      this.y = container.initY - distanceArr[1]
-
-      this.rotation = -boat.bgDirection
-    }
 
 
-    //this.x += boat.speed * Math.sin(boat.allDirection)
+    var d = boat.speedY
+
+    this.children.map(function (child) {
+      child.y += d;
+      if(child.y > HEIGHT){
+        child.y = - asideHeight;
+      }
+    })
+
   }
 
   return container;
@@ -121,18 +97,19 @@ module.exports = function(boat,reverse){
   container.centralX = asideWidth/2
   container.centralY = HEIGHT/2 + container.y;
 
-  container.roadFn = lRoadFn2;
+  container.roadFn = lRoadFn;
 
-  //for(var i = 0;i<10;i++){
-  //  var mySprite = mySpriteFn()
-  //  mySprite.y = i*asideHeight
-  //  container.addChild(mySprite)
-  //}
+  for(var i = 0;i<10;i++){
+    var mySprite = mySpriteFn()
+    mySprite.y = i*asideHeight
+    container.addChild(mySprite)
+  }
 
   if(reverse){
+    container.scale.x = -container.scale.x;
     container.name = '右侧';
-    container.initX = WIDTH - asideWidth;
-    container.x = WIDTH - asideWidth;
+    container.initX = WIDTH;
+    container.x = WIDTH;
     container.roadFn = rRoadFn;
   }
 

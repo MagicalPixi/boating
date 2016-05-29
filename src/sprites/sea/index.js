@@ -5,27 +5,46 @@ var riverAsideFn = require('../river_aside');
 
 var mySpriteFn = require('./sprite.js');
 
-var mySprite = mySpriteFn();
-var mySprite2 = mySpriteFn();
+var WIDTH = pixiLib.createRender.DEFAULT_WIDTH;
+var HEIGHT = pixiLib.createRender.DEFAULT_HEIGHT;
 
-var width = pixiLib.createRender.DEFAULT_WIDTH;
-var height = pixiLib.createRender.DEFAULT_HEIGHT;
+function seaBg(){
+
+  var graphics = new PIXI.Graphics();
+
+  graphics.beginFill(0x38dcFF);
+
+  graphics.lineStyle(2, 0x0BA5FF, 1);
+
+  graphics.drawRect(0, 0, WIDTH, HEIGHT);
+
+  graphics.endFill();
+
+  return graphics;
+}
 
 function wrapper(obj){
 
   obj.render = function () {
-    this.y += this.speed
 
-    if(this.y >= height){
-      this.y = -height
+    this.y += boat.speedY
+    if(this.y>HEIGHT){
+      this.y = - 200
     }
   }
   return obj;
 }
 
-mySprite.y = 0;
-mySprite2.y = -height;
+var wave = mySpriteFn()
+wave.scale.x = 0.5
+wave.scale.y = 0.5
+wave.x = (WIDTH - wave.width)/2
 
+var wave2 = mySpriteFn()
+wave2.scale.x = 0.5
+wave2.scale.y = 0.5
+wave2.x = (WIDTH - wave.width)/2
+wave2.y = -400
 
 module.exports = function (boat) {
 
@@ -37,11 +56,12 @@ module.exports = function (boat) {
   container.x = 0
   container.y = 0
 
-  container.centralX = width/2
-  container.centralY = height/2
+  container.centralX = WIDTH/2
+  container.centralY = HEIGHT/2
 
-  container.addChild(wrapper(mySprite));
-  container.addChild(wrapper(mySprite2));
+  container.addChild(seaBg());
+  container.addChild(wrapper(wave,boat));
+  container.addChild(wrapper(wave2,boat));
 
   container.render = function () {
 
@@ -51,8 +71,7 @@ module.exports = function (boat) {
     //this.y = container.initY - distanceArr[1]/2
 
     this.children.forEach(function (c) {
-      c.speed = boat.speed;
-      c.render();
+      c.render && c.render();
     })
   }
 
