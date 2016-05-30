@@ -188,8 +188,6 @@ module.exports = function(playerFn){
 
   container.name = '船';
 
-
-
   container.directionLeftCount = DEFAULT_PLAY_COUNT;
   container.directionRightCount = DEFAULT_PLAY_COUNT;
 
