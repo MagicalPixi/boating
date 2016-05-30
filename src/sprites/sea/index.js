@@ -44,7 +44,14 @@ var wave2 = mySpriteFn()
 wave2.scale.x = 0.5
 wave2.scale.y = 0.5
 wave2.x = (WIDTH - wave.width)/2
-wave2.y = -400
+wave2.y = 400
+
+var wave3 = mySpriteFn()
+wave3.scale.x = 0.5
+wave3.scale.y = 0.5
+wave3.x = (WIDTH - wave3.width)/2
+wave3.y = 800
+
 
 module.exports = function (boat) {
 
@@ -62,6 +69,7 @@ module.exports = function (boat) {
   container.addChild(seaBg());
   container.addChild(wrapper(wave,boat));
   container.addChild(wrapper(wave2,boat));
+  container.addChild(wrapper(wave3,boat));
 
   container.render = function () {
 
