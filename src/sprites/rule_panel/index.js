@@ -18,6 +18,8 @@ module.exports = function () {
     graphics.lineTo(325, 475);
     graphics.endFill();
 
+    container.addChild(graphics);
+
     //规则内容
     var ruleStyle = {
         font: 'bold italic 36px Arial',
@@ -59,22 +61,6 @@ module.exports = function () {
     rightRule.y = 180;
     container.addChild(rightRule);
 
-
-    //开始按钮
-    var startButton = new PIXI.Container();
-
-    var startGraphics = new PIXI.Graphics();
-    startGraphics.beginFill(0xFF6347, 1);
-    startGraphics.drawRect(0, 875, 650, 129);
-    startButton.addChild(startGraphics);
-
-    var startText = new PIXI.Text('START',ruleStyle);
-    startText.x = 270;
-    startText.y = 918;
-    startButton.addChild(startText);
-
-    container.addChild(graphics);
-    container.addChild(startButton);
-
     return container;
 }
+
