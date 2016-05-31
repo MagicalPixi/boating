@@ -81,8 +81,6 @@ function wrapperBoat(boat){
     var left = this.directionLeftCount;
     var right = this.directionRightCount;
 
-    console.log(left,right);
-
     var radians = -(right - left) * SINGLE_PI;
 
     //if(Math.abs(radians) >= this.maxDirection){
@@ -121,7 +119,7 @@ function wrapperBoat(boat){
    * 调整速度
    */
   boat.updateSpeed = function(){
-    this.speed = this.initSpeed + (this.speedLeftCount + this.speedRightCount)/2;
+    this.speed = this.initSpeed + (this.speedLeftCount + this.speedRightCount)/2 + this.speedExtra;
     this.speedY = this.speed * Math.cos(this.allDirection)
     this.speedX = this.speed * Math.sin(this.allDirection)
   }
@@ -167,10 +165,16 @@ function wrapperBoat(boat){
   }
 
   boat.speedUp = function () {
-    this.speed += 10
+
+    console.log('speeeeeeed UP!');
+
+    this.speedExtra += 10
+    boat.updateSpeed()
+
     setTimeout(function () {
-      this.speed -=10
-    })
+      boat.speedExtra -= 10
+      boat.updateSpeed()
+    }, 2000)
   }
   boat.test = function(){
     this.directionLeftCount = 6;
@@ -195,6 +199,7 @@ module.exports = function(playerFn){
   container.speedRightCount = DEFAULT_PLAY_COUNT;
 
   container.initSpeed = 1;
+  container.speedExtra = 0;
   container.speed = 1;
   container.speedX = 0;
   container.speedY = 1;

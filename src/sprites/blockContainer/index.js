@@ -6,12 +6,18 @@ var pixiLib = require('pixi-lib')
 
 
 var zongziFn = require('../zongzi/')
+var stoneFn = require('../stone')
 
 function wrapper(container,boat){
 
   container.addBlock = function () {
 
-    this.addChild(zongziFn(boat))
+    if(Math.random() > 0.5){
+
+      this.addChild(zongziFn(boat))
+    }else{
+      this.addChild(stoneFn(boat))
+    }
   }
 
   container.render = function () {
@@ -31,12 +37,9 @@ function wrapper(container,boat){
 module.exports = function (boat) {
   var container = new PIXI.Container();
 
-
   container.x = 0
 
   container = wrapper(container,boat)
-
-
 
   return container
 }

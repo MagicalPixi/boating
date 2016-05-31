@@ -3,7 +3,7 @@ var pixiLib = require('pixi-lib')
 
 var riverAsideFn = require('../river_aside');
 
-var mySpriteFn = require('./sprite.js');
+var waveFn = require('../wave');
 
 var WIDTH = pixiLib.createRender.DEFAULT_WIDTH;
 var HEIGHT = pixiLib.createRender.DEFAULT_HEIGHT;
@@ -23,39 +23,17 @@ function seaBg(){
   return graphics;
 }
 
-function wrapper(obj){
-
-  obj.render = function () {
-
-    this.y += boat.speedY
-    if(this.y>HEIGHT){
-      this.y = - 200
-    }
-  }
-  return obj;
-}
-
-var wave = mySpriteFn()
-wave.scale.x = 0.5
-wave.scale.y = 0.5
-wave.x = (WIDTH - wave.width)/2
-
-var wave2 = mySpriteFn()
-wave2.scale.x = 0.5
-wave2.scale.y = 0.5
-wave2.x = (WIDTH - wave.width)/2
-wave2.y = 400
-
-var wave3 = mySpriteFn()
-wave3.scale.x = 0.5
-wave3.scale.y = 0.5
-wave3.x = (WIDTH - wave3.width)/2
-wave3.y = 800
-
 
 module.exports = function (boat) {
 
   var container = new PIXI.Container();
+  var wave = waveFn(boat)
+
+  var wave2 = waveFn(boat)
+  wave2.y = 400
+
+  var wave3 = waveFn(boat)
+  wave3.y = 800
 
   container.initX = 0
   container.initY = 0
@@ -67,9 +45,9 @@ module.exports = function (boat) {
   container.centralY = HEIGHT/2
 
   container.addChild(seaBg());
-  container.addChild(wrapper(wave,boat));
-  container.addChild(wrapper(wave2,boat));
-  container.addChild(wrapper(wave3,boat));
+  container.addChild(wave);
+  container.addChild(wave2);
+  container.addChild(wave3);
 
   container.render = function () {
 
@@ -79,7 +57,7 @@ module.exports = function (boat) {
     //this.y = container.initY - distanceArr[1]/2
 
     this.children.forEach(function (c) {
-      c.render && c.render();
+      c.render && c.render()
     })
   }
 
