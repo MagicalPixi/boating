@@ -8,12 +8,19 @@ var HEIGHT = pixiLib.createRender.DEFAULT_HEIGHT;
 
 function wrapper(obj,boat){
 
+  var i = 0;
+
   obj.render = function () {
 
-    this.y += boat.speedY
+    this.y += boat.speedY + 1
     if(this.y>HEIGHT){
       this.y = - 200
     }
+
+    if(i++%8===0){
+      this.visible = !this.visible
+    }
+
   }
   return obj;
 }
