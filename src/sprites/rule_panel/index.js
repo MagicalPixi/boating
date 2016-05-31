@@ -6,19 +6,27 @@ module.exports = function () {
 
     var container = new PIXI.Container();
 
+    var rulePanel = new PIXI.Container();
+
     var graphics = new PIXI.Graphics();
+
+    var WIDTH = pixiLib.createRender.DEFAULT_WIDTH;
+    var HEIGHT = pixiLib.createRender.DEFAULT_HEIGHT;
+
+    rulePanel.x = 0;
+    rulePanel.y = 100;
 
     //规则区块
     graphics.beginFill(0xFF700B, 0.5);
-    graphics.drawRect(0, 100, 650, 375);
+    graphics.drawRect(0, 0, 650, 375);
 
     //分割线
     graphics.lineStyle(4, 0xffd900, 1);
-    graphics.moveTo(325, 180);
-    graphics.lineTo(325, 475);
+    graphics.moveTo(325, 80);
+    graphics.lineTo(325, 375);
     graphics.endFill();
 
-    container.addChild(graphics);
+    rulePanel.addChild(graphics);
 
     //规则内容
     var ruleStyle = {
@@ -35,8 +43,8 @@ module.exports = function () {
     };
     var ruleTitle = new PIXI.Text('Rules',ruleStyle);
     ruleTitle.x = 270;
-    ruleTitle.y = 120;
-    container.addChild(ruleTitle);
+    ruleTitle.y = 20;
+    rulePanel.addChild(ruleTitle);
 
     var ruleStyle = {
         font: 'bold italic 36px Arial',
@@ -53,13 +61,48 @@ module.exports = function () {
 
     var leftRule = new PIXI.Text('On the left side sliding down, the boat will turn right.', ruleStyle);
     leftRule.x = 50;
-    leftRule.y = 180;
-    container.addChild(leftRule);
+    leftRule.y = 80;
+    rulePanel.addChild(leftRule);
 
     var rightRule = new PIXI.Text('On the right side sliding down, the boat will turn left.', ruleStyle);
     rightRule.x = 375;
-    rightRule.y = 180;
-    container.addChild(rightRule);
+    rightRule.y = 80;
+    rulePanel.addChild(rightRule);
+
+    container.addChild(rulePanel);
+
+    //开始按钮
+    var startButton = new PIXI.Container();
+
+    var startGraphics = new PIXI.Graphics();
+    startGraphics.beginFill(0xFF6347, 1);
+    startGraphics.drawRect(0, 875, 650, 129);
+    startButton.addChild(startGraphics);
+
+    var startText = new PIXI.Text('START', ruleStyle);
+    startText.x = 270;
+    startText.y = 918;
+
+    startButton.addChild(startText);
+    startButton.interactive = true;
+    startButton.on('mousedown', onStartClick);
+    startButton.on('touchstart', onStartClick);
+
+    container.addChild(startButton);
+
+    function onStartClick() {
+        animate();
+    }
+
+    function animate() {
+        if (startButton.y < HEIGHT) {
+            startButton.y += 2;
+        }
+        if(WIDTH - rulePanel.x >0 ){
+           rulePanel.x -=10;
+        }
+        requestAnimationFrame(animate);
+    }
 
     return container;
 }
