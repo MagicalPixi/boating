@@ -24,7 +24,7 @@ var args = [{
 
     
 
-    "scale.x" :  0.5 ,
+    "scale.x" :  0.25 ,
 
     
 
@@ -32,7 +32,7 @@ var args = [{
 
     
 
-    "scale.y" :  0.5 ,
+    "scale.y" :  0.25 ,
 
     
 

@@ -33,7 +33,7 @@ module.exports = function (boat) {
 
   var stone = mySpriteFn()
 
-  stone.x = 428
+  stone.x = 400
   stone.centralX = stone.width/2 + stone.x
   stone.centralY = stone.heigt/2
 
