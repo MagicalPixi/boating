@@ -4,10 +4,12 @@ var json = [
 
 ];
 var png = [
-  "sea",
   'race_flag',
   'river_aside',
-  'zongzi'
+  'zongzi',
+  'stone',
+  'wave',
+  'boat2'
 ];
 
 module.exports = function (add,callback) {

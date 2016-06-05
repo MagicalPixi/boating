@@ -15,7 +15,7 @@ module.exports = function (render) {
         var seaFn = require('../../sprites/sea');
 
         var boatingPlayerFn = require('../../sprites/boating_player');
-        var boatFn = require('../../sprites/boat');
+        var boatFn = require('../../sprites/boat2');
         var distanceProgressFn = require('../../sprites/distance_progress');
         var riverAsideFn = require('../../sprites/river_aside');
         var rulePanelFn = require('../../sprites/rule_panel');

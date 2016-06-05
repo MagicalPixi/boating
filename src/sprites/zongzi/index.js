@@ -4,7 +4,7 @@ var mySpriteFn = require('./sprite.js')
 
 function detect(o1,o2){
 
-  var d = pixiLib.distance(o1.centralX,o1.centralY,o2.centralX,o2.centralY)
+  var d = pixiLib.math.distance(o1.centralX,o1.centralY,o2.centralX,o2.centralY)
 
   //console.log(d)
 

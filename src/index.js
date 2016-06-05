@@ -20,3 +20,4 @@ scenesLoader.keys().filter(function(key){
 // window.scene0(render);
 window.scene1(render);
 // window.scene2(render);
+

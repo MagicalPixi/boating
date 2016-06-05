@@ -6,7 +6,7 @@ var pixiLib = require('pixi-lib')
 var range = require('lodash/range');
 var spriteFn = require('./sprite');
 
-var PLAYER_GAP = 90;
+var PLAYER_GAP = 30;
 var DEFAULT_PLAY_COUNT = 1;
 
 var WIDTH  = pixiLib.createRender.DEFAULT_WIDTH;
@@ -31,8 +31,8 @@ function boatPlayer(aside,playerFn){
     if(!aside){
       p.scale.x = -p.scale.x;
     }
-    p.x = 100;
-    p.y += i*PLAYER_GAP;
+    p.x = 82.5;
+    p.y += 145 + i*PLAYER_GAP;
     return p;
   });
 
@@ -187,6 +187,9 @@ function wrapperBoat(boat){
 module.exports = function(playerFn){
 
   var boat = spriteFn();
+
+  boat.scale.x = 1.3
+  boat.scale.y = 1.3
 
   var container = new PIXI.Container();
 

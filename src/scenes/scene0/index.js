@@ -32,12 +32,15 @@ function handTap(stage,callback){
 
 module.exports = function (render) {
 
+  var control = pixiLib.audioControl('/src/audio/bg.mp3')
+  control.play()
+
   addResource(loader.add.bind(loader),function(){
 
     var seaFn = require('../../sprites/sea');
 
     var boatingPlayerFn = require('../../sprites/boating_player');
-    var boatFn = require('../../sprites/boat');
+    var boatFn = require('../../sprites/boat2');
     var distanceProgressFn = require('../../sprites/distance_progress');
     var riverAsideFn = require('../../sprites/river_aside')
 
