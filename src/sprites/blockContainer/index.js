@@ -12,6 +12,7 @@ function wrapper(container,boat){
 
   container.addBlock = function () {
 
+
     if(Math.random() > 0.5){
 
       this.addChild(zongziFn(boat))

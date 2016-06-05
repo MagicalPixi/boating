@@ -32,6 +32,9 @@ function handTap(stage,callback){
 
 module.exports = function (render) {
 
+  var control = pixiLib.audioControl('/src/audio/bg.mp3')
+  control.play()
+
   addResource(loader.add.bind(loader),function(){
 
     var seaFn = require('../../sprites/sea');
