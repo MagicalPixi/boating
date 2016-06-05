@@ -4,17 +4,14 @@
 
 module.exports = function () {
 
-    var container = new PIXI.Container();
-
     var rulePanel = new PIXI.Container();
 
     var graphics = new PIXI.Graphics();
 
-    var WIDTH = pixiLib.createRender.DEFAULT_WIDTH;
-    var HEIGHT = pixiLib.createRender.DEFAULT_HEIGHT;
-
     rulePanel.x = 0;
     rulePanel.y = 100;
+    rulePanel.width = 650;
+    rulePanel.height = 375;
 
     //规则区块
     graphics.beginFill(0xFF700B, 0.5);
@@ -69,41 +66,6 @@ module.exports = function () {
     rightRule.y = 80;
     rulePanel.addChild(rightRule);
 
-    container.addChild(rulePanel);
-
-    //开始按钮
-    var startButton = new PIXI.Container();
-
-    var startGraphics = new PIXI.Graphics();
-    startGraphics.beginFill(0xFF6347, 1);
-    startGraphics.drawRect(0, 875, 650, 129);
-    startButton.addChild(startGraphics);
-
-    var startText = new PIXI.Text('START', ruleStyle);
-    startText.x = 270;
-    startText.y = 918;
-
-    startButton.addChild(startText);
-    startButton.interactive = true;
-    startButton.on('mousedown', onStartClick);
-    startButton.on('touchstart', onStartClick);
-
-    container.addChild(startButton);
-
-    function onStartClick() {
-        animate();
-    }
-
-    function animate() {
-        if (startButton.y < HEIGHT) {
-            startButton.y += 2;
-        }
-        if(WIDTH - rulePanel.x >0 ){
-           rulePanel.x -=10;
-        }
-        requestAnimationFrame(animate);
-    }
-
-    return container;
+    return rulePanel;
 }
 

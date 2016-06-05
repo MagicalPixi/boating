@@ -1,7 +1,8 @@
 /**
- * Created by zhouchunjie on 16/5/27.
- * start page
+ * Created by zhouchunjie on 16/5/31.
+ * end page
  */
+
 var loader = require('../../loader');
 var addResource = require('../scene0/addResource');
 
@@ -18,7 +19,7 @@ module.exports = function (render) {
         var boatFn = require('../../sprites/boat');
         var distanceProgressFn = require('../../sprites/distance_progress');
         var riverAsideFn = require('../../sprites/river_aside');
-        var rulePanelFn = require('../../sprites/rule_panel');
+        var scorePanelFn = require('../../sprites/score_panel');
         var startButtonFn = require('../../sprites/start_button');
 
         var boat = boatFn(boatingPlayerFn);
@@ -28,8 +29,8 @@ module.exports = function (render) {
         var riverAsideLeft = riverAsideFn(boat)
         var riverAsideRight = riverAsideFn(boat, true);
 
-        var rulePanel = rulePanelFn();
-        var startButton = startButtonFn("START");
+        var rulePanel = scorePanelFn('100');
+        var startButton = startButtonFn("RESTART");
 
         var stage = new PIXI.Container();
 
