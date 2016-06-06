@@ -6,7 +6,7 @@ if (window.NODE_ENV == 'develop') {
 } else if (window.NODE_ENV == 'production') {
   path = 'http://o8c60jr2y.bkt.clouddn.com/'
 } else {
-  path = 'src/resource'
+  path = 'src/resource/'
 }
 
 module.exports = pixiLib.createLoader({
