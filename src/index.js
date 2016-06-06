@@ -12,12 +12,12 @@ scenesLoader.keys().filter(function(key){
 
   var sceneStart = scenesLoader(key);
 
-  window['scene' + i] = function (render) {
+  window['scene' + i] = function () {
     sceneStart(render);
   }
 });
 
-// window.scene0(render);
-window.scene1(render);
+window.scene0(render);
+//window.scene1(render);
 // window.scene2(render);
 

@@ -3,18 +3,15 @@ var mySpriteFn = require('./sprite.js')
 
 
 function detect(o1,o2){
-
-  var d = pixiLib.distance(o1.centralX,o1.centralY,o2.centralX,o2.centralY)
-
-  //console.log(d)
-
-  return d < 80
+  return Math.abs(o1.centralX - o2.x) < (o1.width * o1.scale.x / 2 + o2.width * o2.scale.x / 2) && Math.abs(o1.centralY - o2.y) < (o1.height * o1.scale.y / 2 + o2.height * o2.scale.y / 2) 
 }
 
 function wrapper(obj,boat){
 
   obj.render = function () {
-
+    if(detect(boat, this)) {
+      window.scene2()
+    }
     this.y += boat.speedY
     this.centralY = this.y + this.height/2
 
