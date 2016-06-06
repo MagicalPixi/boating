@@ -21,7 +21,7 @@ module.exports = function (score) {
     scorePanel.addChild(graphics);
 
     //规则内容
-    var ruleStyle = {
+    var titleStyle = {
         font: 'bold italic 80px Arial',
         fill: '#F7EDCA',
         stroke: '#4a1850',
@@ -33,12 +33,12 @@ module.exports = function (score) {
         wordWrap: true,
         wordWrapWidth: 250
     };
-    var scoreTitle = new PIXI.Text('Score',ruleStyle);
-    scoreTitle.x = 270;
-    scoreTitle.y = 20;
+    var scoreTitle = new PIXI.Text('SCORE',titleStyle);
+    scoreTitle.x = 170;
+    scoreTitle.y = 40;
     scorePanel.addChild(scoreTitle);
 
-    var ruleStyle = {
+    var scoreStyle = {
         font: 'bold italic 80px Arial',
         fill: '#F7EDCA',
         stroke: '#4a1850',
@@ -51,10 +51,28 @@ module.exports = function (score) {
         wordWrapWidth: 220
     };
 
-    var scoreText =  new PIXI.Text(score,ruleStyle);
-    scoreText.x = 50;
-    scoreText.y = 80;
+    var scoreText =  new PIXI.Text(score,scoreStyle);
+    scoreText.x = 230;
+    scoreText.y = 160;
     scorePanel.addChild(scoreText);
+
+    var rankingStyle = {
+        font: 'bold italic 25px Arial',
+        fill: '#F7EDCA',
+        stroke: '#4a1850',
+        strokeThickness: 5,
+        dropShadow: true,
+        dropShadowColor: '#000000',
+        dropShadowAngle: Math.PI / 6,
+        dropShadowDistance: 6,
+        wordWrap: true,
+        wordWrapWidth: 550
+    };
+    //var rankingText = new PIXI.Text('您已击败了'+78.9 + '%的玩家',rankingStyle);
+    var rankingText = new PIXI.Text('You have defeated the '+78.9 +'% of the players',rankingStyle);
+    rankingText.x = 60;
+    rankingText.y = 280;
+    scorePanel.addChild(rankingText);
 
     return scorePanel;
 }

@@ -29,7 +29,7 @@ module.exports = function (buttonName) {
     container.addChild(startGraphics);
 
     var startText = new PIXI.Text(buttonName, ruleStyle);
-    startText.x = 270;
+    startText.x = 230;
     startText.y = 43;
 
     container.addChild(startText);
