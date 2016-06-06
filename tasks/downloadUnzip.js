@@ -56,7 +56,7 @@ module.exports = function (gulp) {
       return resources.concat(nextResources);
     },[]);
 
-    downloadMaterialNames = [...new Set(resources.concat(sceneResources))];
+    downloadMaterialNames = [new Set(resources.concat(sceneResources))];
 
     //构建 下载精灵 和场景 的链接
     downloadUrls = downloadMaterialNames.map(function (name) {
