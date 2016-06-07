@@ -32,7 +32,7 @@ function handTap(stage,callback){
 
 module.exports = function (render) {
 
-  var control = pixiLib.audioControl('/src/audio/bg.mp3')
+  var control = pixiLib.audioControl('http://o8c60jr2y.bkt.clouddn.com/bg.mp3')
   control.play()
 
   addResource(loader.add.bind(loader),function(){
