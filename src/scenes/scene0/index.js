@@ -72,6 +72,25 @@ module.exports = function (render) {
       boat.playBoat(aside);
     });
 
+    stage.stop = gameState !== 1;
+    //
+    stage.render = function () {
+      if(gameState === 1){
+        stage.stop = false;
+        this.children.forEach(function (c) {
+          c.render = c._render ? c._render : c.render;
+        })
+      }else if(!stage.stop){
+        stage.stop = true;
+        this.children.forEach(function (c) {
+          if(c.render){
+            c._render = c.render;
+            c.render = false;
+          }
+        })
+      }
+    }
+
     window.renderObj = render(stage);
 
     //renderObj.cancel();

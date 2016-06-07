@@ -17,6 +17,9 @@ scenesLoader.keys().filter(function(key){
   }
 });
 
+//0未开始，1开始，2结束
+window.gameState = false;
+
 window.scene0(render);
 //window.scene1(render);
 // window.scene2(render);
