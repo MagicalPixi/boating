@@ -32,8 +32,8 @@ function handTap(stage,callback){
 
 module.exports = function (render) {
 
-  var control = pixiLib.audioControl('http://o8c60jr2y.bkt.clouddn.com/bg.mp3')
-  control.play()
+  //var control = pixiLib.audioControl('http://o8c60jr2y.bkt.clouddn.com/bg.mp3')
+  //control.play()
 
   addResource(loader.add.bind(loader),function(){
 
@@ -69,7 +69,6 @@ module.exports = function (render) {
     stage.interactive = true;
 
     stage = handTap(stage, function (aside) {
-      console.log('aside:',aside);
       boat.playBoat(aside);
     });
 
