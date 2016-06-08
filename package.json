@@ -35,5 +35,10 @@
     "ejs": "^2.4.1",
     "lodash": "^4.13.1",
     "pixi-lib": "^1.13.4"
+  },
+  "pixiGame": {
+    "default-share-text": "大家一起赛龙舟吧",
+    "game-title": "赛龙舟",
+    "wechat-auth": false
   }
 }
