@@ -32,8 +32,8 @@ function handTap(stage,callback){
 
 module.exports = function (render) {
 
-  var control = pixiLib.audioControl('http://o8c60jr2y.bkt.clouddn.com/bg.mp3')
-  control.play()
+  //var control = pixiLib.audioControl('http://o8c60jr2y.bkt.clouddn.com/bg.mp3')
+  //control.play()
 
   addResource(loader.add.bind(loader),function(){
 
@@ -69,9 +69,27 @@ module.exports = function (render) {
     stage.interactive = true;
 
     stage = handTap(stage, function (aside) {
-      console.log('aside:',aside);
       boat.playBoat(aside);
     });
+
+    stage.stop = gameState !== 1;
+    //
+    stage.render = function () {
+      if(gameState === 1){
+        stage.stop = false;
+        this.children.forEach(function (c) {
+          c.render = c._render ? c._render : c.render;
+        })
+      }else if(!stage.stop){
+        stage.stop = true;
+        this.children.forEach(function (c) {
+          if(c.render){
+            c._render = c.render;
+            c.render = false;
+          }
+        })
+      }
+    }
 
     window.renderObj = render(stage);
 

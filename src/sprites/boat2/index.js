@@ -98,9 +98,9 @@ function wrapperBoat(boat){
     var originX = this.originX;
     var originY = this.originY;
 
-    var targetArr = pixiLib.math.rotateWithCentral(originX,-originY,-radians)
-    var distanceX = targetArr[0]
-    var distanceY = targetArr[1]
+    //var targetArr = pixiLib.math.rotateWithCentral(originX,-originY,-radians)
+    //var distanceX = targetArr[0]
+    //var distanceY = targetArr[1]
 
     //targetX = originX*Math.cos(radians) - originY*Math.sin(radians);
     //targetY = originX*Math.cos(radians) + originY*Math.sin(radians);
@@ -108,8 +108,8 @@ function wrapperBoat(boat){
     //this.x = this.initX - (targetX - originX)/2;
     //this.y = this.initY - (targetY - originY)/2;
 
-    this.x = this.initX - distanceX/2
-    this.y = this.initY + distanceY/2
+    //this.x = this.initX - distanceX/2
+    //this.y = this.initY + distanceY/2
 
     this.rotation = radians;
     this.direction = radians;
@@ -207,6 +207,7 @@ module.exports = function(playerFn){
   container.speedX = 0;
   container.speedY = 2;
 
+
   //船的历史角度叠加记录
   container.direction = 0
   //超过这个角度，船不在旋转,而是背景旋转
@@ -218,21 +219,27 @@ module.exports = function(playerFn){
 
   container.addChild(boat);
 
-  var leftPlayerObj = boatPlayer(0,playerFn);
-  var rightPlayerObj = boatPlayer(1,playerFn);
 
-  container.originX = container.width/2;
-  container.originY = container.height/2;
-  container.initX = (WIDTH - container.width)/2;
-  container.initY = HEIGHT - container.height - 40;
-  container.centralX = container.initX + container.originX;
-  container.centralY = container.initY + container.originX;
-  container.x = container.initX;
-  container.y = container.initY;
+  //container.originX = container.width/2;
+  //container.originY = container.height/2;
+
+  //container.initX = WIDTH/2;//(WIDTH - container.width)/2;
+  //container.initY = HEIGHT/2 + container.height/2;// - 40;
+
+  //container.centralX = container.initX + container.originX;
+  //container.centralY = container.initY + container.originX;
+
+  container.x = WIDTH/2;
+  container.y = HEIGHT/2 + container.height/2;;
+
+  container.pivot.set(container.width/2,container.height/2 - 40)
 
   container.distanceX = 0;
   container.initDistanceY = HEIGHT - container.originY - container.y
   container.distanceY = HEIGHT - container.height - container.y
+
+  var leftPlayerObj = boatPlayer(0,playerFn);
+  var rightPlayerObj = boatPlayer(1,playerFn);
 
   leftPlayerObj.players.concat(rightPlayerObj.players).forEach(function (p) {
     container.addChild(p);
@@ -242,8 +249,6 @@ module.exports = function(playerFn){
   container.rightPlayerObj = rightPlayerObj;
 
   container = wrapperBoat(container);
-
-  window.boat = container;
 
   return container;
 };
