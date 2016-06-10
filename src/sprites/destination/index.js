@@ -53,11 +53,9 @@ module.exports = function (boat) {
   container.visible = false;
   container.stoped = false;
 
-
   var endPosition = 650
 
   container.render = function () {
-    console.log(maxDistance - HEIGHT)
 
     if(boat.distanceY  > (maxDistance - endPosition + container.initY) && !container.stoped){
       container.visible = true

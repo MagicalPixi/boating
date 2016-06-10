@@ -163,7 +163,7 @@ function wrapperBoat(boat){
       boat.y -= this.speedY
     }
     if(this.y < - this.height){
-      gameOver()
+      gameFinish()
     }
   }
 
@@ -201,19 +201,16 @@ module.exports = function(playerFn){
   boat.scale.x = 1.3
   boat.scale.y = 1.3
 
+
   var container = new PIXI.Container();
 
   var leftPlayerObj = boatPlayer(0,playerFn);
   var rightPlayerObj = boatPlayer(1,playerFn);
 
   container.addChild(boat);
-  leftPlayerObj.players.concat(rightPlayerObj.players).forEach(function (p) {
-    container.addChild(p);
-  });
 
   container.leftPlayerObj = leftPlayerObj;
   container.rightPlayerObj = rightPlayerObj;
-
 
   container.name = '船';
 
@@ -240,16 +237,11 @@ module.exports = function(playerFn){
 
   //当为true时，船会继续前进，用于游戏结束时候
   container.keepMoveProp = false;
-  //container.originX = container.width/2;
-  //container.originY = container.height/2;
 
-  //container.initX = WIDTH/2;//(WIDTH - container.width)/2;
-  //container.initY = HEIGHT/2 + container.height/2;// - 40;
 
-  //container.centralX = container.initX + container.originX;
   container.pivot.set(container.width/2,container.height/2 - 40)
 
-  container.x = WIDTH/2
+  container.x = 320
   container.y = HEIGHT/2 + container.height/2
 
   container.detectX = container.x
@@ -259,6 +251,20 @@ module.exports = function(playerFn){
   container.distanceY = 0;
 
   container = wrapperBoat(container);
+
+  //container.removeChildren()
+  //
+  //var g = new PIXI.Graphics()
+  //g.beginFill(0x000000)
+  //g.drawRect(0,0,320,100)
+  //g.endFill()
+  //
+  //
+  //container.addChild(g)
+
+  leftPlayerObj.players.concat(rightPlayerObj.players).forEach(function (p) {
+    container.addChild(p);
+  });
 
   return container;
 };

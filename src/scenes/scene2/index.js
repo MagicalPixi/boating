@@ -29,7 +29,10 @@ module.exports = function (render) {
         var riverAsideLeft = riverAsideFn(boat)
         var riverAsideRight = riverAsideFn(boat, true);
 
-        var rulePanel = scorePanelFn(duration+'秒');
+
+        var endText = gameState === GAME_FINISH ? duration+'秒' : '失败啦'
+
+        var rulePanel = scorePanelFn(endText);
         var startButton = startButtonFn("RESTART");
 
         var stage = new PIXI.Container();

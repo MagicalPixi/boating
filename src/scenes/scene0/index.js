@@ -65,7 +65,6 @@ module.exports = function (render) {
     stage.addChild(sea);
     stage.addChild(destination)
 
-
     stage.addChild(riverAsideLeft)
     stage.addChild(riverAsideRight)
 
@@ -75,7 +74,6 @@ module.exports = function (render) {
     stage.addChild(boat);
 
     stage.interactive = true;
-
 
     var st = Date.now()
 

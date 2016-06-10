@@ -6,16 +6,15 @@ module.exports = function (score) {
 
     var scorePanel = new PIXI.Container();
 
-    var graphics = new PIXI.Graphics();
 
     scorePanel.x = 0;
     scorePanel.y = 100;
-    scorePanel.width = 650;
-    scorePanel.height = 375;
+    //scorePanel.height = 375;
 
+    var graphics = new PIXI.Graphics();
     //规则区块
     graphics.beginFill(0xFF700B, 0.5);
-    graphics.drawRect(0, 0, 650, 375);
+    graphics.drawRect(0, 0, 640, 300);
     graphics.endFill();
 
     scorePanel.addChild(graphics);
@@ -69,10 +68,10 @@ module.exports = function (score) {
         wordWrapWidth: 550
     };
     //var rankingText = new PIXI.Text('您已击败了'+78.9 + '%的玩家',rankingStyle);
-    var rankingText = new PIXI.Text('You have defeated the '+78.9 +'% of the players',rankingStyle);
-    rankingText.x = 60;
-    rankingText.y = 280;
-    scorePanel.addChild(rankingText);
+    //var rankingText = new PIXI.Text('You have defeated the '+78.9 +'% of the players',rankingStyle);
+    //rankingText.x = 60;
+    //rankingText.y = 280;
+    //scorePanel.addChild(rankingText);
 
     return scorePanel;
 }

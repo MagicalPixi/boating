@@ -17,11 +17,12 @@ scenesLoader.keys().filter(function(key){
   }
 });
 
-//0未开始，1开始，2结束,3.正在结束
+//0未开始，1开始，2结束,3.正在结束,4.完成游戏
 window.GAME_INIT=0
 window.GAME_START=1
 window.GAME_OVER=2
 window.GAME_ON_OVER = 3;
+window.GAME_FINISH = 4;
 
 window.gameState = GAME_INIT;
 
@@ -31,7 +32,9 @@ window.gameStart = function () {
 window.gameOver = function () {
   gameState = GAME_OVER
 }
-
+window.gameFinish = function () {
+  gameState = GAME_FINISH
+}
 //耗时
 window.duration  = 0
 
