@@ -103,7 +103,7 @@ module.exports = function (render) {
           }
         })
       }
-      if(gameState === GAME_OVER){
+      if(gameState === GAME_OVER || gameState === GAME_FINISH){
 
         duration = ((Date.now() - st) / 1000).toFixed(2)
 

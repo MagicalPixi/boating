@@ -29,7 +29,6 @@ module.exports = function (render) {
         var riverAsideLeft = riverAsideFn(boat)
         var riverAsideRight = riverAsideFn(boat, true);
 
-
         var endText = gameState === GAME_FINISH ? duration+'秒' : '失败啦'
 
         var rulePanel = scorePanelFn(endText);
@@ -92,6 +91,14 @@ module.exports = function (render) {
         }
 
         stage.interactive = true;
+
+        switch (gameState) {
+            case GAME_FINISH:
+                document.title = '端午龙舟：我花了' + duration + '秒,终于跑完了全程。';
+                break;
+            case GAME_OVER:
+                document.title = '端午龙舟：好难。';
+        }
 
         render(stage);
     });

@@ -3,7 +3,10 @@
  */
 var path = require('path');
 var qnUpload = require('gulp-qiniu');
-var src = path.resolve(__dirname,'../src/resource/*/*.*');
+
+var src = path.resolve(__dirname,'../src/resource/boat-share-image.png');
+
+
 module.exports = function(gulp){
   gulp.task('qiniu',function(){
     gulp.src(src).pipe(qnUpload({
