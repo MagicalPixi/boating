@@ -17,4 +17,11 @@ basic.plugins = [
   })
 ];
 
+basic.output =  {
+  path: path.resolve(__dirname, './js'),
+    publicPath: "/js/",
+    filename: 'index.js'
+},
+
+
 module.exports = basic;
