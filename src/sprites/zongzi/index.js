@@ -11,6 +11,7 @@ function detect(o1,o2){
 
   return d < 40
 }
+var detectRect = require('../../math').detectRect
 
 function wrapper(obj,boat){
 
@@ -22,7 +23,7 @@ function wrapper(obj,boat){
 
     //碰撞
     if(!this.eated){
-      this.eated = detect(this,boat)
+      this.eated = detectRect(this,boat)
       if(this.eated){
         boat.speedUp()
 

@@ -1,10 +1,10 @@
 var detectRect = function(rect1, rect2) {
   var anchor1 = getAnchor(rect1)
   var anchor2 = getAnchor(rect2)
-  var width1 = rect1.width * rect1.scale.x
-  var width2 = rect2.width * rect2.scale.x
-  var height1 = rect1.height * rect1.scale.y
-  var height2 = rect2.height * rect2.scale.y
+  var width1 = rect1.width
+  var width2 = rect2.width
+  var height1 = rect1.height
+  var height2 = rect2.height
   var center1 = {
     x: (0.5 - anchor1.x) * width1 + rect1.x,
     y: (0.5 - anchor1.y) * height1 + rect1.y
@@ -23,8 +23,8 @@ var getAnchor = function(rect) {
     return {x: rect.anchor.x, y:rect.anchor.y}
   } else {
     var anchor = {x: rect.pivot.x, y:rect.pivot.y}
-    anchor.x = anchor.x / (rect.width * rect.scale.x)
-    anchor.y = anchor.y / (rect.height * rect.scale.y)
+    anchor.x = anchor.x / (rect.width)
+    anchor.y = anchor.y / (rect.height)
     return anchor
   }
 }
