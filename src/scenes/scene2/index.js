@@ -33,36 +33,35 @@ module.exports = function (render) {
         var endText = gameState === GAME_FINISH ? duration+'秒' : '失败啦'
 
         var rulePanel = scorePanelFn(endText);
-        var startButton = startButtonFn("RESTART",0);
+        var startButton = startButtonFn("RESTART",0)
 
-        var sharedButton = startButtonFn("SHARED",1);
+        var sharedButton = startButtonFn("SHARED",1)
 
-        var stage = new PIXI.Container();
+        var stage = new PIXI.Container()
 
-        stage.addChild(sea);
+        stage.addChild(sea)
 
         stage.addChild(riverAsideLeft)
         stage.addChild(riverAsideRight)
 
-        stage.addChild(distanceProgress);
-        stage.addChild(boat);
+        stage.addChild(distanceProgress)
+        stage.addChild(boat)
 
-        stage.addChild(rulePanel);
-        stage.addChild(startButton);
-        stage.addChild(sharedButton);
+        stage.addChild(rulePanel)
+        stage.addChild(startButton)
+        stage.addChild(sharedButton)
 
-        startButton.on('mousedown', onStartClick);
-        startButton.on('touchstart', onStartClick);
+        startButton.on('mousedown', onStartClick)
+        startButton.on('touchstart', onStartClick)
 
-        sharedButton.on('mousedown', onSharedClick);
-        sharedButton.on('touchstart', onSharedClick);
+        sharedButton.on('mousedown', onSharedClick)
+        sharedButton.on('touchstart', onSharedClick)
 
         function onStartClick() {
             gameStart()
         }
 
         function onSharedClick(){
-
             pixiLib.utils.shareGuide()
         }
 
@@ -76,11 +75,11 @@ module.exports = function (render) {
         //    requestAnimationFrame(animate);
         //}
 
-
         stage.render = function () {
             if(gameState === GAME_START){
                 if (startButton.y < HEIGHT) {
-                    startButton.y += 2;
+                    sharedButton.y += 4;
+                    startButton.y += 4;
                 }
                 if (rulePanel.width + rulePanel.x > 0) {
                     rulePanel.x -= 10;
@@ -96,6 +95,4 @@ module.exports = function (render) {
 
         render(stage);
     });
-};
-
-
+}
