@@ -1,14 +1,15 @@
 var pixiLib = require('pixi-lib')
 var mySpriteFn = require('./sprite.js')
 
-
 function detect(o1,o2){
 
-  var d = pixiLib.math.distance(o1.centralX,o1.centralY,o2.centralX,o2.centralY)
+  var d = pixiLib.math.distance(o1.centralX,o1.centralY,o2.detectX,o2.detectY)
 
-  //console.log(d)
+  //if(d<80){
+  //  console.log(o1.centralX,o1.centralY,o2.detectX,o2.detectY,d)
+  //}
 
-  return d < 80
+  return d < 40
 }
 
 function wrapper(obj,boat){
@@ -28,10 +29,12 @@ function wrapper(obj,boat){
       }
     }
     if(this.y > 1004 || this.eated){
-      requestAnimationFrame(function () {
-        obj.parent.removeChild(obj);
-        obj.destroy()
-      })
+      obj.parent.removeChild(obj);
+      obj.destroy()
+      //requestAnimationFrame(function () {
+      //  obj.parent.removeChild(obj);
+      //  obj.destroy()
+      //})
     }
   }
 
@@ -43,15 +46,13 @@ module.exports = function (boat) {
 
   var zongzi = mySpriteFn()
 
-  zongzi.x = 128
+  zongzi.x = Math.random() * 272  + 128
   zongzi.centralX = zongzi.width/2 + zongzi.x
   zongzi.centralY = zongzi.heigt/2
 
   zongzi.eated = false;
 
   zongzi = wrapper(zongzi,boat)
-
-
 
   return zongzi
 }

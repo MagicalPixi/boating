@@ -45,21 +45,27 @@ module.exports = function (render) {
         startButton.on('touchstart', onStartClick);
 
         function onStartClick() {
-            animate();
-        }
-
-        function animate() {
-            if (startButton.y < HEIGHT) {
-                startButton.y += 2;
-            }
-            if(WIDTH - rulePanel.x >0 ){
-                rulePanel.x -=10;
-            }
-            requestAnimationFrame(animate);
+            gameState = 1;
         }
 
         stage.addChild(rulePanel);
         stage.addChild(startButton);
+
+        stage.render = function () {
+            if(gameState === 1){
+                if (startButton.y < HEIGHT) {
+                    startButton.y += 2;
+                }
+                if(rulePanel.width + rulePanel.x >0 ){
+                    rulePanel.x -=10;
+                }
+
+                if(startButton.y >= HEIGHT || rulePanel.x < -rulePanel.width ){
+                  console.log('start')
+                  window.scene0(render)
+                }
+            }
+        }
 
         stage.interactive = true;
 

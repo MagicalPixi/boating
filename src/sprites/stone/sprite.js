@@ -10,7 +10,5 @@ args.push([]);
 
 module.exports = function spriteFn(){
   var mySprite = pixiLib.getIm.apply(pixiLib,args);
-  mySprite.anchor.x = 0.5
-  mySprite.anchor.y = 0.5
   return mySprite;
 }

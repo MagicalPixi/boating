@@ -29,7 +29,7 @@ module.exports = function (render) {
         var riverAsideLeft = riverAsideFn(boat)
         var riverAsideRight = riverAsideFn(boat, true);
 
-        var rulePanel = scorePanelFn('100');
+        var rulePanel = scorePanelFn(duration+'秒');
         var startButton = startButtonFn("RESTART");
 
         var stage = new PIXI.Container();
@@ -46,21 +46,37 @@ module.exports = function (render) {
         startButton.on('touchstart', onStartClick);
 
         function onStartClick() {
-            animate();
+
+            gameStart()
         }
 
-        function animate() {
-            if (startButton.y < HEIGHT) {
-                startButton.y += 2;
-            }
-            if(WIDTH - rulePanel.x >0 ){
-                rulePanel.x -=10;
-            }
-            requestAnimationFrame(animate);
-        }
+        //function animate() {
+        //    if (startButton.y < HEIGHT) {
+        //        startButton.y += 2;
+        //    }
+        //    if(WIDTH - rulePanel.x >0 ){
+        //        rulePanel.x -=10;
+        //    }
+        //    requestAnimationFrame(animate);
+        //}
 
         stage.addChild(rulePanel);
         stage.addChild(startButton);
+        
+        stage.render = function () {
+            if(gameState === GAME_START){
+                if (startButton.y < HEIGHT) {
+                    startButton.y += 2;
+                }
+                if (rulePanel.width + rulePanel.x > 0) {
+                    rulePanel.x -= 10;
+                }
+
+                if(startButton.y >= HEIGHT || rulePanel.x < - rulePanel.width){
+                    window.scene0(render)
+                }
+            }
+        }
 
         stage.interactive = true;
 

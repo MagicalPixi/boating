@@ -52,7 +52,7 @@ module.exports = function (score) {
     };
 
     var scoreText =  new PIXI.Text(score,scoreStyle);
-    scoreText.x = 230;
+    scoreText.x = 320 -scoreText.width/2
     scoreText.y = 160;
     scorePanel.addChild(scoreText);
 

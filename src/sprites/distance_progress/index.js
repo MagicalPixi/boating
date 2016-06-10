@@ -7,6 +7,8 @@ var spriteFn = require('./sprite');
 
 var flagFn = require('../race_flag');
 
+var WIDTH  = pixiLib.createRender.DEFAULT_WIDTH;
+
 module.exports = function (boat) {
 
   var flag = flagFn();
@@ -17,6 +19,7 @@ module.exports = function (boat) {
 
   var isEnd = false;
 
+
   flag.y = 25;
   flag.x = 5;
 
@@ -25,11 +28,14 @@ module.exports = function (boat) {
   container.addChild(progress);
   container.addChild(flag)
 
-  window.p = progress;
+  var allWidth = WIDTH * 0.9
 
   container.render = function () {
-    if(!isEnd){
-      flag.x += boat.speed;
+    if(!isEnd && gameState === GAME_START){
+
+      var d = boat.distanceY/maxDistance * allWidth
+
+      flag.x = d;
       isEnd = progress.updateWidth(flag.x+5);
     }
   }

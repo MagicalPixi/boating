@@ -37,6 +37,8 @@ module.exports = function (render) {
 
   addResource(loader.add.bind(loader),function(){
 
+    gameStart()
+
     var seaFn = require('../../sprites/sea');
 
     var boatingPlayerFn = require('../../sprites/boating_player');
@@ -46,6 +48,8 @@ module.exports = function (render) {
 
     var blockContainerFn = require('../../sprites/blockContainer')
 
+    var destinationFn = require('../../sprites/destination')
+
     var boat = boatFn(boatingPlayerFn);
     var distanceProgress = distanceProgressFn(boat);
     var sea = seaFn(boat)
@@ -54,25 +58,32 @@ module.exports = function (render) {
     var riverAsideLeft = riverAsideFn(boat)
     var riverAsideRight = riverAsideFn(boat,true);
 
+    var destination = destinationFn(boat)
+
     var stage = new PIXI.Container();
 
     stage.addChild(sea);
+    stage.addChild(destination)
 
-    stage.addChild(blockContainer)
 
     stage.addChild(riverAsideLeft)
     stage.addChild(riverAsideRight)
+
+    stage.addChild(blockContainer)
 
     stage.addChild(distanceProgress);
     stage.addChild(boat);
 
     stage.interactive = true;
 
+
+    var st = Date.now()
+
     stage = handTap(stage, function (aside) {
       boat.playBoat(aside);
     });
 
-    stage.stop = gameState !== 1;
+    stage.stop = gameState !== GAME_START;
     //
     stage.render = function () {
       if(gameState === 1){
@@ -80,6 +91,11 @@ module.exports = function (render) {
         this.children.forEach(function (c) {
           c.render = c._render ? c._render : c.render;
         })
+
+        if(boat.x < 100 || boat.x > 500){
+          gameOver()
+        }
+
       }else if(!stage.stop){
         stage.stop = true;
         this.children.forEach(function (c) {
@@ -89,7 +105,15 @@ module.exports = function (render) {
           }
         })
       }
+      if(gameState === GAME_OVER){
+
+        duration = ((Date.now() - st) / 1000).toFixed(2)
+
+        window.scene2(render)
+      }
     }
+
+    window.boat = boat;
 
     window.renderObj = render(stage);
 

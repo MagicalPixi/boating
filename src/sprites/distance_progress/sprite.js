@@ -24,7 +24,6 @@ module.exports = {
   progress: function () {
     var graphics = new PIXI.Graphics();
 
-
     graphics.updateWidth = function (width) {
       if(width > w){
         width = w;

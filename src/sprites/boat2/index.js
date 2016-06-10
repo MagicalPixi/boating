@@ -155,13 +155,16 @@ function wrapperBoat(boat){
   };
 
   boat.render = function () {
-    boat.distanceX -= boat.speed * Math.sin(this.allDirection);
-    boat.distanceX -= boat.speed * Math.sin(this.allDirection);
+    boat.distanceY += this.speedY;
+    boat.x += this.speedX
+    boat.detectX = boat.x
 
-    var d = boat.speed * Math.sin(this.allDirection);
-    boat.x += d
-    boat.initX += d
-    boat.centralX = boat.initX + boat.originX
+    if(this.keepMoveProp){
+      boat.y -= this.speedY
+    }
+    if(this.y < - this.height){
+      gameOver()
+    }
   }
 
   boat.speedUp = function () {
@@ -181,6 +184,13 @@ function wrapperBoat(boat){
     this.updateRatio();
   }
 
+  boat.keepMove = function () {
+    this.keepMoveProp = true
+    this.allDirection = 0
+    this.speedUp()
+    this.speedUp()
+  }
+
   return boat;
 }
 
@@ -193,6 +203,18 @@ module.exports = function(playerFn){
 
   var container = new PIXI.Container();
 
+  var leftPlayerObj = boatPlayer(0,playerFn);
+  var rightPlayerObj = boatPlayer(1,playerFn);
+
+  container.addChild(boat);
+  leftPlayerObj.players.concat(rightPlayerObj.players).forEach(function (p) {
+    container.addChild(p);
+  });
+
+  container.leftPlayerObj = leftPlayerObj;
+  container.rightPlayerObj = rightPlayerObj;
+
+
   container.name = '船';
 
   container.directionLeftCount = DEFAULT_PLAY_COUNT;
@@ -201,12 +223,11 @@ module.exports = function(playerFn){
   container.speedLeftCount = DEFAULT_PLAY_COUNT;
   container.speedRightCount = DEFAULT_PLAY_COUNT;
 
-  container.initSpeed = 2;
+  container.initSpeed = 4;
   container.speedExtra = 0;
-  container.speed = 2;
+  container.speed = 4;
   container.speedX = 0;
-  container.speedY = 2;
-
+  container.speedY = 4;
 
   //船的历史角度叠加记录
   container.direction = 0
@@ -217,9 +238,8 @@ module.exports = function(playerFn){
   //总旋转角度
   container.allDirection = 0;
 
-  container.addChild(boat);
-
-
+  //当为true时，船会继续前进，用于游戏结束时候
+  container.keepMoveProp = false;
   //container.originX = container.width/2;
   //container.originY = container.height/2;
 
@@ -227,26 +247,16 @@ module.exports = function(playerFn){
   //container.initY = HEIGHT/2 + container.height/2;// - 40;
 
   //container.centralX = container.initX + container.originX;
-  //container.centralY = container.initY + container.originX;
-
-  container.x = WIDTH/2;
-  container.y = HEIGHT/2 + container.height/2;;
-
   container.pivot.set(container.width/2,container.height/2 - 40)
 
+  container.x = WIDTH/2
+  container.y = HEIGHT/2 + container.height/2
+
+  container.detectX = container.x
+  container.detectY = container.y - container.height/2;
+
   container.distanceX = 0;
-  container.initDistanceY = HEIGHT - container.originY - container.y
-  container.distanceY = HEIGHT - container.height - container.y
-
-  var leftPlayerObj = boatPlayer(0,playerFn);
-  var rightPlayerObj = boatPlayer(1,playerFn);
-
-  leftPlayerObj.players.concat(rightPlayerObj.players).forEach(function (p) {
-    container.addChild(p);
-  });
-
-  container.leftPlayerObj = leftPlayerObj;
-  container.rightPlayerObj = rightPlayerObj;
+  container.distanceY = 0;
 
   container = wrapperBoat(container);
 
