@@ -1,6 +1,7 @@
 /**
  * Created by zhouchunjie on 16/5/31.
  */
+var WIDTH = pixiLib.createRender.DEFAULT_WIDTH;
 var HEIGHT = pixiLib.createRender.DEFAULT_HEIGHT;
 
 module.exports = function (buttonName,index) {
@@ -36,7 +37,7 @@ module.exports = function (buttonName,index) {
     container.addChild(startGraphics);
 
     var startText = new PIXI.Text(buttonName, ruleStyle);
-    startText.x = 230;
+    startText.x = (WIDTH - startText.width ) /2;
     startText.y = 43;
 
     container.addChild(startText);
