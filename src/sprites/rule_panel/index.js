@@ -56,12 +56,12 @@ module.exports = function () {
         wordWrapWidth: 220
     };
 
-    var leftRule = new PIXI.Text('On the left side sliding down, the boat will turn right.', ruleStyle);
+    var leftRule = new PIXI.Text('On the left side sliding down, the boat will turn right. 左侧上下滑动', ruleStyle);
     leftRule.x = 50;
     leftRule.y = 80;
     rulePanel.addChild(leftRule);
 
-    var rightRule = new PIXI.Text('On the right side sliding down, the boat will turn left.', ruleStyle);
+    var rightRule = new PIXI.Text('On the right side sliding down, the boat will turn left. 右侧上下滑动', ruleStyle);
     rightRule.x = 375;
     rightRule.y = 80;
     rulePanel.addChild(rightRule);
