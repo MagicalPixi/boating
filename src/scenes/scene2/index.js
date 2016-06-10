@@ -33,7 +33,9 @@ module.exports = function (render) {
         var endText = gameState === GAME_FINISH ? duration+'秒' : '失败啦'
 
         var rulePanel = scorePanelFn(endText);
-        var startButton = startButtonFn("RESTART");
+        var startButton = startButtonFn("RESTART",0);
+
+        var sharedButton = startButtonFn("SHARED",1);
 
         var stage = new PIXI.Container();
 
@@ -45,12 +47,23 @@ module.exports = function (render) {
         stage.addChild(distanceProgress);
         stage.addChild(boat);
 
+        stage.addChild(rulePanel);
+        stage.addChild(startButton);
+        stage.addChild(sharedButton);
+
         startButton.on('mousedown', onStartClick);
         startButton.on('touchstart', onStartClick);
 
-        function onStartClick() {
+        sharedButton.on('mousedown', onSharedClick);
+        sharedButton.on('touchstart', onSharedClick);
 
+        function onStartClick() {
             gameStart()
+        }
+
+        function onSharedClick(){
+
+            pixiLib.utils.shareGuide()
         }
 
         //function animate() {
@@ -63,9 +76,7 @@ module.exports = function (render) {
         //    requestAnimationFrame(animate);
         //}
 
-        stage.addChild(rulePanel);
-        stage.addChild(startButton);
-        
+
         stage.render = function () {
             if(gameState === GAME_START){
                 if (startButton.y < HEIGHT) {

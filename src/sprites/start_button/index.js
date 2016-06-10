@@ -1,13 +1,20 @@
 /**
  * Created by zhouchunjie on 16/5/31.
  */
-module.exports = function (buttonName) {
+var HEIGHT = pixiLib.createRender.DEFAULT_HEIGHT;
+
+module.exports = function (buttonName,index) {
+
+    if(!index){
+        index = 0
+    }
 
     var container = new PIXI.Container();
+
+    var height = 130;
+
     container.x = 0;
-    container.y = 875;
-    container.width = 650;
-    container.height = 130;
+    container.y = HEIGHT - height*(index+1);
 
     var ruleStyle = {
         font: 'bold italic 36px Arial',
@@ -20,12 +27,12 @@ module.exports = function (buttonName) {
         dropShadowDistance: 6,
         wordWrap: true,
         wordWrapWidth: 220
-    };
+    }
 
     //开始按钮
     var startGraphics = new PIXI.Graphics();
-    startGraphics.beginFill(0xFF6347, 1);
-    startGraphics.drawRect(0, 0, 650, 129);
+    startGraphics.beginFill('0x'+(parseInt(0xFF6347)+index*20000).toString(16), 1);
+    startGraphics.drawRect(0, 0, 640, height);
     container.addChild(startGraphics);
 
     var startText = new PIXI.Text(buttonName, ruleStyle);
