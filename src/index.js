@@ -40,7 +40,7 @@ window.duration  = 0
 
 window.maxDistance = 10000
 
-window.scene0(render);
-//window.scene1(render);
+//window.scene0(render);
+window.scene1(render);
 //window.scene2(render);
 
