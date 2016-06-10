@@ -12,10 +12,12 @@ function detect(o1,o2){
   return d < 45
 }
 
+var detectRect = require('../../math').detectRect
+
 function wrapper(obj,boat){
 
   obj.render = function () {
-    if(detect(this,boat)) {
+    if(detectRect(this,boat)) {
      gameOver();
     }
     this.y += boat.speedY
