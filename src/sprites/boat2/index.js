@@ -12,7 +12,7 @@ var DEFAULT_PLAY_COUNT = 1;
 var WIDTH  = pixiLib.createRender.DEFAULT_WIDTH;
 var HEIGHT = pixiLib.createRender.DEFAULT_HEIGHT;
 
-var SINGLE_PI = Math.PI/60;
+var SINGLE_PI = Math.PI/45;
 /**
  * @param aside 0=left,1=right
  * @param playerFn
@@ -242,7 +242,7 @@ module.exports = function(playerFn){
   container.pivot.set(container.width/2,container.height/2 - 40)
 
   container.x = 320
-  container.y = HEIGHT/2 + container.height/2
+  container.y = HEIGHT/2 + 250
 
   container.detectX = container.x
   container.detectY = container.y - container.height/2;

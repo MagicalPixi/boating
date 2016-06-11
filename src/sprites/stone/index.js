@@ -40,7 +40,7 @@ module.exports = function (boat) {
 
   var stone = mySpriteFn()
 
-  stone.x = Math.random() * 272  + 128
+  stone.x = Math.random() > 0.5 ?  400 : 128
   stone.centralX = stone.width/2 + stone.x
   stone.centralY = stone.heigt/2
 
