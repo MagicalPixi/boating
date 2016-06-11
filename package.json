@@ -38,6 +38,7 @@
     "pixi-lib": "^1.13.4"
   },
   "pixiGame": {
+    "name": "boating",
     "default-share-image":"http://o8c60jr2y.bkt.clouddn.com/boat-share-image.png",
     "default-share-text": "大家一起赛龙舟吧",
     "game-title": "赛龙舟",
