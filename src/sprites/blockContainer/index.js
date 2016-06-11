@@ -21,9 +21,11 @@ function wrapper(container,boat){
     }
   }
 
+  var count = 0
+
   container.render = function () {
 
-    if(Math.random() > 0.99 && this.children.length < 1){
+    if((count++%90)=== 0 && this.children.length < 1){
       this.addBlock()
     }
 
