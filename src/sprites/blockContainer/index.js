@@ -7,6 +7,7 @@ var pixiLib = require('pixi-lib')
 
 var zongziFn = require('../zongzi/')
 var stoneFn = require('../stone')
+var warningFn = require('../warning')
 
 function wrapper(container,boat){
 
@@ -17,7 +18,8 @@ function wrapper(container,boat){
 
       this.addChild(zongziFn(boat))
     }else{
-      this.addChild(stoneFn(boat))
+
+      this.addChild(warningFn(stoneFn(boat)))
     }
   }
 

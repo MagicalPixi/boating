@@ -17,13 +17,13 @@ var detectRect = require('../../math').detectRect
 function wrapper(obj,boat){
 
   obj.render = function () {
-    if(detectRect(this,boat)) {
-     gameOver();
+    if (detectRect(this, boat)) {
+      gameOver();
     }
     this.y += boat.speedY
-    this.centralY = this.y + this.height/2
+    this.centralY = this.y + this.height / 2
 
-    if(this.y > 1004 || this.crashed){
+    if (this.y > 1004 || this.crashed) {
       obj.parent.removeChild(obj);
       obj.destroy()
       //requestAnimationFrame(function () {
@@ -43,6 +43,9 @@ module.exports = function (boat) {
   stone.x = Math.random() > 0.5 ?  400 : 128
   stone.centralX = stone.width/2 + stone.x
   stone.centralY = stone.heigt/2
+
+
+  stone.displayed = false;
 
   stone.crashed = false;
 

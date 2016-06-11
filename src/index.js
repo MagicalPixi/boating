@@ -1,5 +1,7 @@
 var pixiLib = require('pixi-lib');
-window.NODE_ENV = 'production'
+
+//window.NODE_ENV = 'production'
+
 window.pixiLib = pixiLib;
 
 var render = pixiLib.createRender(document.body);

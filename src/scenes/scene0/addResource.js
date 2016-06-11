@@ -9,7 +9,8 @@ var png = [
   'zongzi',
   'stone',
   'wave',
-  'boat2'
+  'boat2',
+  'warning'
 ];
 
 module.exports = function (add,callback) {

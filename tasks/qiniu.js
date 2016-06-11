@@ -4,7 +4,7 @@
 var path = require('path');
 var qnUpload = require('gulp-qiniu');
 
-var src = path.resolve(__dirname,'../src/resource/boat-share-image.png');
+var src = path.resolve(__dirname,'../src/sprites/warning/warning.png');
 
 
 module.exports = function(gulp){
