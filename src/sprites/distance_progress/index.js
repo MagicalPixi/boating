@@ -19,7 +19,6 @@ module.exports = function (boat) {
 
   var isEnd = false;
 
-
   flag.y = 25;
   flag.x = 5;
 

@@ -155,15 +155,18 @@ function wrapperBoat(boat){
   };
 
   boat.render = function () {
-    boat.distanceY += this.speedY;
-    boat.x += this.speedX
-    boat.detectX = boat.x
+    if(gameState === GAME_START) {
 
-    if(this.keepMoveProp){
-      boat.y -= this.speedY
-    }
-    if(this.y < - this.height){
-      gameFinish()
+      boat.distanceY += this.speedY;
+      boat.x += this.speedX
+      boat.detectX = boat.x
+
+      if (this.keepMoveProp) {
+        boat.y -= this.speedY
+      }
+      if (this.y < -this.height) {
+        gameFinish()
+      }
     }
   }
 
