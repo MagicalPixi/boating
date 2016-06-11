@@ -5,11 +5,11 @@ var mySpriteFn = require('./sprite.js')
 function detect(o1,o2){
   var d = pixiLib.math.distance(o1.centralX,o1.centralY,boat.detectX,o2.detectY)
 
-  //if(d<80){
-  //  console.log(o1.centralX,o1.centralY,o2.detectX,o2.detectY,d)
-  //}
+  if(d<80){
+    console.log(o1.centralX,o1.centralY,o2.detectX,o2.detectY,d)
+  }
 
-  return d < 45
+  return d < 55
 }
 
 var detectRect = require('../../math').detectRect
